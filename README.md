@@ -1,2 +1,2 @@
 # games
-mini games, mini tools, all whims
+mini games, mini tools, all inspiration

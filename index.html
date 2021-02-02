@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Inspiration</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <h1>Inspiration of life ~</h1>
+    </header>
+    <main>
+        <section id="inspiration-list">
+        </section>
+    </main>
+    <footer>
+        ©️2021, made by <a href="https://github.com/syt-honey" target="_blank">syt-honey</a>. The theme design is inspired by <a href="https://css-tricks.com" target="_blank">CSS-Tricks</a>.
+    </footer>
+</div>
+</body>
+
+<script>
+
+    const insContainer = document.getElementById('inspiration-list');
+
+    const imgSrcList = [
+        {
+            src: './image/palette/palette.png',
+            name: 'chrome 调色器',
+            link: 'https://github.com/GeekUniversity?tab=overview&from=2021-02-01&to=2021-02-02'
+        }, {
+            src: './image/home.jpg',
+            name: 'home',
+            link: 'https://github.com/GeekUniversity?tab=overview&from=2021-02-01&to=2021-02-02'
+        }, {
+            src: './image/palette/palette.png',
+            name: 'chrome 调色器',
+            link: 'https://github.com/GeekUniversity?tab=overview&from=2021-02-01&to=2021-02-02'
+        }, {
+            src: './image/palette/palette.png',
+            name: 'chrome 调色器',
+            link: 'https://github.com/GeekUniversity?tab=overview&from=2021-02-01&to=2021-02-02'
+        }, {
+            src: './image/home.jpg',
+            name: 'home',
+            link: 'https://github.com/GeekUniversity?tab=overview&from=2021-02-01&to=2021-02-02'
+        }
+    ];
+
+    imgSrcList.forEach(insItem => {
+        const parentFragment = document.createDocumentFragment();
+        const outerDiv = document.createElement('div');
+        outerDiv.classList.add('ins-item-container');
+        outerDiv.setAttribute('ins-name', insItem.name)
+
+        let img = new Image();
+        img.src = insItem.src;
+
+        outerDiv.style.width = `${img.width * 200 / img.height }px`;
+        outerDiv.style.flexGrow =  `${img.width * 200 / img.height}`;
+
+        outerDiv.addEventListener('click', () => window.open(insItem.link));
+
+        // 设置该元素的宽高为图片的宽高以撑起整个外围 div 的宽高
+        const innerDiv = document.createElement('div');
+        innerDiv.style.paddingBottom = `${img.height / img.width * 100}%`;
+
+        outerDiv.appendChild(innerDiv);
+        outerDiv.appendChild(img);
+
+        parentFragment.appendChild(outerDiv);
+
+        insContainer.append(parentFragment);
+    });
+
+</script>
+</html>
