@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Number type internal storage method</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+<div class="wrapper">
+    <h2 style="color: #444d56; margin-bottom: 40px;">十进制浮点数转 IEEE 754 双精度浮点数</h2>
+    <input class="match-input" type="text"  id="number-input" placeholder="输入十进制浮点数（特殊值暂未考虑）">
+    <button class="gen-btn" onclick="confirm()">确定</button>
+    <div class="rule">
+        <label>规则：(-1)S * 2^(E - 1023) * 1.M</label>
+        <label style="margin-left: 20px">正确二进制值为： <label id="correct"></label></label>
+    </div>
+    <div id="number-container">
+    </div>
+</div>
+</body>
+<script>
+
+    // 有关 IEEE 745 双精度浮点数存储常量。有关 IEEE 745 双精度浮点数也可以查看：https://zh.wikipedia.org/wiki/IEEE_754#64%E4%BD%8D%E9%9B%99%E7%B2%BE%E5%BA%A6
+    const CONSTANT = {
+        TOTAL_BIT: 64,
+        S_INDEX: 0,
+        E_INDEX: 1,
+        M_INDEX: 12,
+        S_LEN: 1,
+        E_LEN: 11,
+        M_LEN: 52,
+        VALUE_OF_0X3FF: 1023,
+        TO_BINARY_STRING: 2
+    }
+
+    const arr = Array(CONSTANT.TOTAL_BIT).fill("");
+
+    // 初始化格子
+    const container = document.getElementById("number-container");
+
+    function init() {
+        container.innerHTML = "";
+        const itemList = document.createDocumentFragment();
+        arr.forEach((value, index) => {
+            const newEl = document.createElement("div");
+
+            if (index === CONSTANT.S_INDEX) {
+                newEl.classList.add("sign-cell");
+            } else if (index > CONSTANT.S_INDEX && index < CONSTANT.M_INDEX) {
+                newEl.classList.add("exp-cell");
+            } else {
+                newEl.classList.add("fra-cell");
+            }
+
+            newEl.classList.add("number-cell")
+            itemList.appendChild(newEl);
+        });
+
+        container.appendChild(itemList);
+        document.getElementById("correct").innerText = "";
+    }
+
+    init();
+
+    /**
+     * 设置各个段的二进制值。
+     * 规则为：(-1)S * 2^(E - 0x3ff) * 1.M
+     *
+     * 若十进制浮点数为：1.001 * 2^2
+     * 则：
+     *      符号位：S 为 0
+     *      指数位：E - 1023 = 2 => E = 1025 => E 为 10000000001
+     *      尾数位：M 为 001 => 001（剩余全为 0）
+     * @param value
+     * @returns {boolean}
+     */
+    function setByte(value) {
+
+        let val = Number(value);
+
+        if ( isNaN(val) || typeof val !== "number" ) {
+            return false;
+        }
+
+        document.getElementById("correct").innerText = val.toString(CONSTANT.TO_BINARY_STRING);
+
+        // 设置符号位
+        setS(val);
+
+        // 先转换为二进制浮点数，再使用二进制的科学计数法表示，求出 E 和 M 的值
+
+        let str = val.toString(CONSTANT.TO_BINARY_STRING);
+        let temStr = str / Number(1 + Array(str.split(".")[0].length - 1).fill(0).join(""));
+
+        let E = val < 0 ? str.split(".")[0].length - 2 : str.split(".")[0].length - 1;
+        let M = String(temStr).split(".")[1];
+
+        console.log(E, M)
+
+        // 设置指数位、尾数位
+        setE(E);
+        setM(M);
+
+        return true;
+    }
+
+    function setE(E) {
+        let temE = (E + CONSTANT.VALUE_OF_0X3FF).toString(CONSTANT.TO_BINARY_STRING);
+        for(let i = CONSTANT.E_INDEX ; i < CONSTANT.M_INDEX; ++i) {
+            document.getElementById("number-container").childNodes[i].innerText = temE[i - CONSTANT.S_LEN];
+        }
+    }
+
+    function setM(M) {
+        let temM = M + Array(CONSTANT.M_LEN - M.length).fill(0).join("");
+        for(let i = CONSTANT.M_INDEX ; i < CONSTANT.TOTAL_BIT; ++i) {
+            document.getElementById("number-container").childNodes[i].innerText = temM[i - (CONSTANT.E_LEN  + CONSTANT.S_LEN)];
+        }
+    }
+
+    /**
+     * 设置符号位样式
+     */
+    function setS(val) {
+        document.getElementById("number-container").childNodes[CONSTANT.S_INDEX].innerText = Number(val < 0);
+    }
+
+    function confirm() {
+        const inputValue = document.getElementById("number-input").value;
+        if (!(inputValue.trim()) || !setByte(inputValue)) {
+            init();
+            console.log("请输入有效的十进制数")
+        } else {
+            setByte(inputValue);
+        }
+    }
+
+</script>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>chrome 调色器</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="color-picker" name="palette">
+        <div class="color-indicator" name="palette"></div>
+    </div>
+<!--    TODO hover to paste-->
+    <div class="preview">
+        <div class="hover"></div>
+    </div>
+    <div class="hue-slider palette" name="hue">
+        <div class="slider-indicator" name="hue"></div>
+    </div>
+    <div class="alpha-slider palette" name="alpha">
+        <div class="slider-indicator" name="alpha"></div>
+    </div>
+    <div class="result">
+        <div class="hsla">
+            <input type="text" name="H">
+            <input type="text" name="S">
+            <input type="text" name="L">
+            <input type="text" name="A">
+            <label>H</label>
+            <label>S</label>
+            <label>L</label>
+            <label>A</label>
+        </div>
+    </div>
+    <div class="sample">
+        Change my color pls!
+    </div>
+</div>
+</body>
+<script type="module">
+    import { DragContext } from './drag.js';
+    import { StyleRender } from './render.js';
+    import { effect } from "./proxy.js";
+
+    const doms = {};
+    const dragContexts = [];
+
+    kickPicker();
+    kickSliders();
+    // 初始化
+    StyleRender.getInstance(doms, dragContexts);
+
+    // 在类中注册响应变量，如果发生改变则执行该方法进行更新实现数据同步
+    effect(() => {
+        const hslaList = StyleRender.getInstance(doms, dragContexts).getHSL();
+        const hslaColor = `hsla(${hslaList[0]}, ${hslaList[1]}, ${hslaList[2]}, ${hslaList[3]})`;
+
+        document.getElementsByClassName('sample')[0].style.color = `${hslaColor}`;
+    })
+
+    function kickPicker () {
+        // 获取色盘有关节点并缓存
+        const picker = document.querySelector('.color-picker');
+        const indicator = document.querySelector('.color-indicator');
+        doms.picker = picker;
+        doms.indicator = indicator;
+
+        const name = picker.getAttribute('name');
+        const context = new DragContext({
+            context: picker,
+            dragger: indicator,
+            name,
+            direction: 'both'
+        })
+
+        dragContexts.push(context);
+    }
+
+    function kickSliders () {
+        const palettes = Array.prototype.slice.call(document.querySelectorAll('.palette'));
+        const sliders = Array.prototype.slice.call(document.querySelectorAll('.slider-indicator'));
+        doms.palettes = palettes;
+        doms.sliders = sliders;
+
+        const contexts = palettes.map((context) => {
+            const name = context.getAttribute('name');
+            const dragger = sliders.filter(ele => ele.getAttribute('name') === name)[0];
+
+            return new DragContext({
+                context,
+                dragger,
+                name,
+                direction: 'horizontal',
+                initX: 155
+            });
+        });
+
+        dragContexts.push(...contexts);
+    }
+</script>
+</html>

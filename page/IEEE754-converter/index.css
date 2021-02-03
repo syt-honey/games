@@ -1,0 +1,88 @@
+/* 公共样式 */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* 自定义 input、button 样式 */
+
+button,
+input {
+    outline: none;
+    border: none;
+}
+
+.gen-btn {
+    margin-left: 20px;
+    padding: 8px 20px;
+    border-radius: 4px;
+    background: #4f8bee;
+    cursor: pointer;
+    color: #fff;
+}
+
+.match-input {
+    padding: 7px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    width: 250px;
+    font-family: PingFangSC-Regular, serif;
+}
+
+.match-input:focus {
+    border-color: #409eff;
+}
+
+.match-input::-webkit-input-placeholder {
+    opacity: 1;
+    font-weight: normal;
+    color: #dcdfe6;
+}
+
+#number-container {
+    display: grid;
+    grid-template-rows: repeat(4, 50px);
+    grid-template-columns: repeat(16, 50px);
+    margin-top: 20px;
+    background: #c6e2ff;
+}
+
+#number-container:first-child {
+    background: red;
+}
+
+.number-cell {
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 20px;
+}
+
+.sign-cell {
+    background: #D6E4FF;
+}
+
+.exp-cell {
+    background: #D0ED64;
+}
+
+.fra-cell {
+    background: #FFCE78;
+}
+
+.rule {
+    margin-top: 20px;
+    color: #7a7a7a;
+    font-size: 14px;
+}

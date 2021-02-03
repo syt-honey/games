@@ -1,0 +1,134 @@
+html,
+body {
+    margin: 0;
+}
+
+.wrapper {
+    margin: 150px auto;
+    box-shadow: 0 0 7px 2px rgba(0,0,0,.08);
+    border-radius: 4px;
+    width: 250px;
+    height: 300px;
+}
+
+.color-picker {
+    position: relative;
+    margin-bottom: 25px;
+    border-radius: inherit;
+    height: 150px;
+    background:
+            linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
+            linear-gradient(to left, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
+    background-color: red;
+}
+
+.color-indicator {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.preview {
+    float: left;
+    margin-left: 20px;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    background:
+            linear-gradient(45deg, rgba(0, 0, 0, .25) 25%, transparent 0, transparent 75%, rgba(0, 0, 0, .25) 0) 0 0 / 12px 12px,
+            linear-gradient(45deg, rgba(0, 0, 0, .25) 25%, transparent 0, transparent 75%, rgba(0, 0, 0, .25) 0) 6px 6px / 12px 12px;
+    background-color: rgba(255, 255, 255, .5);
+    cursor: pointer;
+}
+
+/* TODO hover to paste */
+/*.hover {*/
+/*    position: relative;*/
+/*    height: 100%;*/
+/*    border-radius: 50%;*/
+/*    background: transparent;*/
+/*}*/
+
+/*.hover:hover {*/
+/*    background: rgba(0, 0, 0, .4);*/
+/*}*/
+
+.palette {
+    position: relative;
+    margin-left: 75px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    width: 155px;
+    height: 12px;
+    background: darkblue;
+    cursor: pointer;
+}
+
+.palette + .palette {
+    margin-bottom: 20px;
+}
+
+.result > .hsla {
+    margin: 10px auto;
+    width: 209px;
+    color: #d6d3d3;
+}
+
+.result > .hsla > input {
+    padding: 5px 6px;
+    border-radius: 0;
+    border: 1px solid #eee;
+    width: 34px;
+    text-align: center;
+}
+
+.result > .hsla > label {
+    display: inline-block;
+    text-align: center;
+    width: 48px;
+}
+
+.sample {
+    margin: 40px;
+}
+
+.hue-slider {
+    background: linear-gradient(to left,
+        hsl(0, 100%, 50%) 0%,
+        hsl(30, 100%, 50%) 8.33%,
+        hsl(60, 100%, 50%) 16.67%,
+        hsl(90, 100%, 50%) 25%,
+        hsl(120, 100%, 50%) 33.33%,
+        hsl(150, 100%, 50%) 41.67%,
+        hsl(180, 100%, 50%) 50%,
+        hsl(210, 100%, 50%) 58.33%,
+        hsl(240, 100%, 50%) 66.67%,
+        hsl(270, 100%, 50%) 75%,
+        hsl(300, 100%, 50%) 83.33%,
+        hsl(330, 100%, 50%) 91.67%,
+        hsl(0, 100%, 50%) 100%
+    );
+}
+
+.alpha-slider {
+    background:
+            linear-gradient(45deg, rgba(0, 0, 0, .25) 25%, transparent 0, transparent 75%, rgba(0, 0, 0, .25) 0) 0 0 / 12px 12px,
+            linear-gradient(45deg, rgba(0, 0, 0, .25) 25%, transparent 0, transparent 75%, rgba(0, 0, 0, .25) 0) 6px 6px / 12px 12px;
+    background-color: rgba(255, 255, 255, .5);
+}
+
+.slider-indicator {
+    position: relative;
+    left: -8px;
+    top: -2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    transform: translateX(155px);
+    background: rgb(248, 248, 248);
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .2));
+}
