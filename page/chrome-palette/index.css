@@ -1,20 +1,30 @@
 html,
 body {
     margin: 0;
+    height: 100vh;
+}
+
+body {
+    /* 消除上边距与第一个元素发生的 margin 重叠 */
+    padding-top: 1px;
+    text-align: center;
+    background: rgba(0, 0, 0, .5);
 }
 
 .wrapper {
-    margin: 150px auto;
+    margin: 150px auto 20px;
     box-shadow: 0 0 7px 2px rgba(0,0,0,.08);
     border-radius: 4px;
     width: 250px;
     height: 300px;
+    background: #fff;
 }
 
 .color-picker {
     position: relative;
     margin-bottom: 25px;
-    border-radius: inherit;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
     height: 150px;
     background:
             linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
@@ -93,7 +103,7 @@ body {
 }
 
 .sample {
-    margin: 40px;
+    font-size: 20px;
 }
 
 .hue-slider {
@@ -131,4 +141,16 @@ body {
     transform: translateX(155px);
     background: rgb(248, 248, 248);
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .2));
+}
+
+footer, footer a {
+    color: #fff;
+}
+
+footer {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    font-size: 13px;
+    transform: translateX(-50%);
 }

@@ -19,11 +19,8 @@ import { inspList } from "./config.js";
 
             const img = images[index];
 
-            console.log(images, images[0]);
-
             outerDiv.style.width = `${img.naturalWidth * 200 / img.naturalHeight }px`;
             outerDiv.style.flexGrow =  `${img.naturalWidth * 200 / img.naturalHeight}`;
-
 
             // 设置该元素的宽高为图片的宽高以撑起整个外围 div 的宽高
             const innerDiv = document.createElement('div');
@@ -66,4 +63,3 @@ import { inspList } from "./config.js";
         }
     }
 })();
-

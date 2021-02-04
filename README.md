@@ -1,2 +1,10 @@
-# games
-mini games, mini tools, all inspiration
+## games introduction
+
+mini games, mini tools, all inspiration.
+
+you can preview here: [syt-honey/games](https://syt-honey.github.io/games/)
+
+## updated item
+
+- [x] [chrome palette](https://github.com/syt-honey/games/tree/main/page/chrome-palette)  
+- [x] [IEEE754 converter](https://github.com/syt-honey/games/tree/main/page/IEEE754-converter)

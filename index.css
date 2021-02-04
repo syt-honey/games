@@ -29,13 +29,13 @@ body::after{
     width: 80%;
     min-height: calc(100vh - 120px);
     margin: 0 auto;
-    padding-top: 60px;
+    padding-top: 40px;
     padding-bottom: 60px;
     color: #fff;
 }
 
-h1 {
-    margin: 10px 0 20px 0;
+header {
+    margin: 10px 0 40px 0;
 }
 
 main {
