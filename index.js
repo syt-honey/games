@@ -3,63 +3,48 @@ import { inspList } from "./config.js";
 (function (){
 
     // 用于存储已经预加载过的图片
-    let images = [];
     const insContainer = document.getElementById('inspiration-list');
     const list = inspList.map(item => item.src);
 
-    // 预加载图片
-    preloadImg(list);
+    // 预加载图片完后生成图片标签并插入文档
+    Promise.all(list).then(imgSrcList => {
+        imgSrcList.forEach((src, index) => {
+            preloadImg(src).then((imgSrc) => {
+                const parentFragment = document.createDocumentFragment();
+                const outerDiv = document.createElement('div');
+                outerDiv.classList.add('ins-item-container');
+                outerDiv.setAttribute('ins-name', inspList[index].name);
 
-    setTimeout(() => {
-        inspList.forEach((insItem, index) => {
-            const parentFragment = document.createDocumentFragment();
-            const outerDiv = document.createElement('div');
-            outerDiv.classList.add('ins-item-container');
-            outerDiv.setAttribute('ins-name', insItem.name)
+                outerDiv.style.width = `${imgSrc.naturalWidth * 200 / imgSrc.naturalHeight}px`;
+                outerDiv.style.flexGrow = `${imgSrc.naturalWidth * 200 / imgSrc.naturalHeight}`;
 
-            const img = images[index];
+                // 设置该元素的宽高为图片的宽高以撑起整个外围 div 的宽高
+                const innerDiv = document.createElement('div');
+                innerDiv.style.paddingBottom = `${imgSrc.naturalHeight / imgSrc.naturalWidth * 100}%`;
 
-            outerDiv.style.width = `${img.naturalWidth * 200 / img.naturalHeight }px`;
-            outerDiv.style.flexGrow =  `${img.naturalWidth * 200 / img.naturalHeight}`;
+                outerDiv.appendChild(innerDiv);
+                outerDiv.appendChild(imgSrc);
+                parentFragment.appendChild(outerDiv);
 
-            // 设置该元素的宽高为图片的宽高以撑起整个外围 div 的宽高
-            const innerDiv = document.createElement('div');
-            innerDiv.style.paddingBottom = `${img.naturalHeight / img.naturalWidth * 100}%`;
+                outerDiv.addEventListener('click', () => window.open(inspList[index].link));
 
-            outerDiv.appendChild(innerDiv);
-            outerDiv.appendChild(img);
-            parentFragment.appendChild(outerDiv);
-
-            outerDiv.addEventListener('click', () => window.open(insItem.link));
-
-            insContainer.append(parentFragment);
+                insContainer.append(parentFragment);
+            });
         });
-    }, 200);
+    });
 
-    // 预加载图片列表，返回已经加载的图片资源
-    function preloadImg(list) {
-        if(list.length === 0) {
-            return images;
-        }
-        let img = new Image();
-        img.src = list[0];
-        if(img.complete) {
-            images.push(img);
-            list.shift();
-            return new Promise((resolve => {
-                preloadImg(list, images);
-                resolve();
-            }));
-        }
-        else {
-            img.onload = function() {
-                images.push(img);
-                list.shift();
-                return new Promise((resolve => {
-                    preloadImg(list, images);
-                    resolve();
-                }));
-            };
-        }
+    // 预加载图片，返回已经加载的图片资源
+    function preloadImg (imgSrc) {
+        return new Promise(resolve => {
+            let img = new Image();
+            img.src = imgSrc;
+            if(img.complete) {
+                resolve(img);
+            } else {
+                img.onload = function() {
+                    resolve(img);
+                };
+            }
+        });
     }
 })();
