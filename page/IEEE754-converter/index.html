@@ -12,7 +12,7 @@
 <div class="wrapper">
     <h2 style="color: #444d56; margin-bottom: 40px;">十进制浮点数转 IEEE 754 双精度浮点数</h2>
     <input class="match-input" type="text"  id="number-input" placeholder="输入十进制浮点数（特殊值暂未考虑）">
-    <button class="gen-btn" onclick="confirm()">确定</button>
+    <button class="gen-btn">确定</button>
     <div class="rule">
         <label>规则：(-1)S * 2^(E - 1023) * 1.M</label>
         <label style="margin-left: 20px">正确二进制值为： <label id="correct"></label></label>
@@ -22,9 +22,7 @@
 </div>
 </body>
 <script type="module">
-
     import { CONSTANT } from "./constant.js";
-
     const arr = Array(CONSTANT.TOTAL_BIT).fill("");
 
     // 初始化格子
@@ -117,7 +115,8 @@
         document.getElementById("number-container").childNodes[CONSTANT.S_INDEX].innerText = Number(val < 0);
     }
 
-    function confirm() {
+    // 监听确定按钮，然后执行操作
+    document.getElementsByClassName('gen-btn')[0].addEventListener('click', () => {
         const inputValue = document.getElementById("number-input").value;
         if (!(inputValue.trim()) || !setByte(inputValue)) {
             init();
@@ -125,7 +124,7 @@
         } else {
             setByte(inputValue);
         }
-    }
+    });
 
 </script>
 </html>
