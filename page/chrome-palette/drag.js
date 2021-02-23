@@ -1,4 +1,4 @@
-import { utils } from "../../utils";
+import { utils } from "../../utils/index.js";
 import { StyleRender } from "./render.js";
 
 class DragContext {
