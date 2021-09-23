@@ -9,5 +9,9 @@ export const inspList = [
         name: 'IEEE754 转换器',
         src: './image/ieee754/IEEE754.png',
         link: './page/IEEE754-converter/index.html'
+    }, {
+        name: "JSON Formatter",
+        src: "./image/jsonFormatter/jsonFormatter.png",
+        link: "https://syt-honey.github.io/JSONFormatter/#/index"
     }
 ];
