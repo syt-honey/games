@@ -13,5 +13,9 @@ export const inspList = [
         name: "JSON Formatter",
         src: "./image/jsonFormatter/jsonFormatter.png",
         link: "https://syt-honey.github.io/JSONFormatter/#/index"
+    }, {
+        name: "taskOverview",
+        src: "./image/taskOverview/task-overview.png",
+        link: "https://syt-honey.github.io/taskOverview/#/index"
     }
 ];
