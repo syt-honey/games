@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mortgage Calculator</title>
+
+    <style>
+      input {
+        margin-right: 5px;
+      }
+    </style>
+</head>
+<body>
+  <div class="wrapper">
+      <main>
+        <div>
+          <span>余额：</span>
+          <input type="text" placeholder="当前账户余额" id="balance">
+        </div>
+        <br />
+        <div id="arr-container">
+          <span>缴纳规则：<span style="font-size: 12px;color: #111;">（在调整基数或换工作后，每月入账的额度可能会发生变化。请按照入账额度变化填写下方每月入缴额度及持续月数。总月数不超过12个月。）</span></span>
+          <br />
+          <div class="arr-item">
+            <input type="text" placeholder="每月入缴额度"><input type="text" placeholder="该额度持续月数">
+          </div>
+        </div>
+        <button id="add">+</button>
+
+        <br />
+        <br />
+        <button id="confirm">确定</button>
+
+        <p>-----------------------</p>
+
+        <p>距离 <input placeholder="输入指定值" type="number" id="special"> 元还需要 <span id="special-v">--</span> 月</p>
+
+        <p>-----------------------</p>
+
+        <p>
+          当前可贷款额度：<span id="result">-</span> 元
+        </p>
+
+        <p>距离最高值 <span id="max">--</span> 元还需要 <span id="month">--</span> 月<span style="font-size: 12px;color: #111;">（最高值为2022-6-15日杭州公积金管理中心<a target="_blank" href="http://hz.bendibao.com/live/2022616/122171.shtm">公布</a>。）</span></p>
+      </main>
+  </div>
+
+  <script src="./index.js"></script>
+</body>
+</html>
