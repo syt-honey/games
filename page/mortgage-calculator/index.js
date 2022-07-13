@@ -1,4 +1,4 @@
-let curAmount = 38153;
+let curAmount = 40673;
 const minAmount = 150000;
 const maxAmount = 600000;
 
@@ -54,6 +54,8 @@ confirm.addEventListener("click", () => {
 
     setArr(arrContainer, amountArr, curAmount);
 
+    console.log(arrContainer)
+
     setValue("result", getRes(getArrSum(amountArr) / 12 * 15));
     setValue("month", getRemainMonth(maxAmount));
   }
@@ -84,6 +86,7 @@ function setArr(all, amountArr, curAmount) {
             return;
         }
         amountArr[ms] = pre - idx * cur.amount;
+        console.log(pre - idx * cur.amount)
         ++ms;
     }
     return pre - idx * cur.amount;
@@ -123,6 +126,7 @@ function getElement(id) {
 function genInput(placeholder) {
   const el = document.createElement("input");
   el.value = "";
+  el.setAttribute("type", "number")
   el.placeholder = placeholder;
   return el;
 }

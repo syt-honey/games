@@ -17,5 +17,9 @@ export const inspList = [
         name: "taskOverview",
         src: "./image/taskOverview/task-overview.png",
         link: "https://syt-honey.github.io/taskOverview/#/index"
-    }
+    }, , {
+      name: "mortgageCalculator",
+      src: "./image/mortgageCalculator/template.png",
+      link: "./page/mortgage-calculator/index.html"
+  }
 ];
